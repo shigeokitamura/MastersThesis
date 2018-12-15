@@ -1,0 +1,160 @@
+%   Style File for Graduate Thesis      
+%   at Matsushita Lab., Faculty of Informatics, Kansai Univ.
+%   2010/05/18 Mitsunori Matsushita
+
+%--------------------------------------------------------------
+%ページレイアウトの再定義
+%--------------------------------------------------------------
+\topmargin=-0.2cm
+\headheight=1cm
+\headsep=0cm  \footskip=1cm
+\oddsidemargin=0.04cm 
+\evensidemargin=0.04cm
+\textheight=23.7cm  
+\textwidth=15.5cm
+\footskip=1.5cm
+\topmargin=-0.04cm
+
+\global\let\@myid\@empty % 追加
+\global\let\myid\relax % 追加
+
+\long\def\myid#1{\long\gdef\@myid{#1}}
+
+
+%--------------------------------------------------------------
+% 概要の再定義
+%--------------------------------------------------------------
+\renewcommand{\abstractname}{\Large 要旨%    
+     \thispagestyle{jpl@in}\@thanks
+}
+
+
+%--------------------------------------------------------------
+%行送りの再定義
+%--------------------------------------------------------------
+\renewcommand{\baselinestretch}{1.1}
+
+
+%--------------------------------------------------------------
+%目次の再定義
+%--------------------------------------------------------------
+\setcounter{tocdepth}{1}
+ 
+
+%--------------------------------------------------------------
+%chapterの再定義
+%--------------------------------------------------------------
+\renewcommand{\chapter}{%
+	\@startsection{chapter}{1}{\z@}%
+	{1.0\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+	{.5\Cvs \@plus.3\Cdp}%
+	{\reset@font\newpage\LARGE\bfseries }}
+
+
+%--------------------------------------------------------------
+%sectionの再定義
+%--------------------------------------------------------------
+\renewcommand{\section}{%
+	\@startsection{section}{1}{\z@}%
+	{1.0\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+	{.5\Cvs \@plus.3\Cdp}%
+	{\reset@font\large\bfseries}}
+
+
+%--------------------------------------------------------------
+%subsectionの再定義
+%--------------------------------------------------------------
+\renewcommand{\subsection}{%
+	\@startsection{subsection}{1}{\z@}%
+	{.5\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+	{.2\Cvs \@plus.3\Cdp}%
+	{\reset@font\bfseries}}
+
+
+%--------------------------------------------------------------
+%subsubsectionの再定義
+%--------------------------------------------------------------
+\renewcommand{\subsubsection}{%
+	\@startsection{subsubsection}{1}{\z@}%
+	{.2\Cvs \@plus.5\Cdp \@minus.2 \Cdp}%
+	{.1\Cvs \@plus.3\Cdp}%
+	{\reset@font\bfseries}}
+
+
+%--------------------------------------------------------------
+%enumerate環境における番号付けの再定義
+%--------------------------------------------------------------
+\renewcommand{\labelenumi}{（\theenumi）}
+
+
+%--------------------------------------------------------------
+%thebibrography環境の見出しの再定義
+%--------------------------------------------------------------
+\renewcommand{\bibname}{参考文献}
+
+
+%--------------------------------------------------------------
+% タイトルの再定義
+%--------------------------------------------------------------
+\renewcommand{\maketitle}{\par
+  \thispagestyle{empty}
+  \begingroup
+    \renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+    \def\@makefnmark{\hbox{\ifydir $\m@th^{\@thefnmark}$
+      \else\hbox{\yoko$\m@th^{\@thefnmark}$}\fi}}%
+     \long\def\@makefntext##1{\parindent 1em\noindent
+       \hbox to1.8em{\hss$\m@th^{\@thefnmark}$}##1}%
+    \if@twocolumn
+      \ifnum \col@number=\@ne \@maketitle
+      \else \twocolumn[\@maketitle]%
+      \fi
+    \else
+      \newpage
+      \global\@topnum\z@   % Prevents figures from going at top of page.
+      \@maketitle
+    \fi
+  \endgroup
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\p@thanks\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+
+\def\@maketitle{%
+  \newpage\null
+%  \vskip 4em%
+  \vskip 3em%
+  \begin{center}%
+%    {\Large \bf 修士論文 \par}%
+%    \vskip 2em%
+    \let\footnote\thanks
+    {\Huge \bf \@title \par}%
+    \vskip 13em%
+    {\LARGE  総合情報学研究科\\知識情報学専攻\par}%
+    \vskip 4em%
+    {\LARGE ヒューマンコンピュータインタラクションにおける\\認知と感性の情報処理\par}%
+    \vskip 5.5em%
+%    {\Large \@date}%
+%    \vskip 2em%
+    {\Large
+      \lineskip .5em%
+%      {\bf\@date \par}%\\
+%      {\LARGE 11M1111 \par}%\\
+      {\LARGE \@myid  \par}%\\
+      \vskip 0.5em%
+      \begin{tabular}[t]{c}%
+        {\huge \@author}%
+      \end{tabular}\par}%
+  \end{center}%
+  \par\vskip 1.5em
+}
+
+\endinput

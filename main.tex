@@ -1,0 +1,52 @@
+\documentclass[a4paper,11pt]{jreport}
+\usepackage{masterthesis}
+\usepackage[dvipdfmx]{graphicx}
+\graphicspath{ {./figure/} }
+
+%次の行を有効にすると、その章だけが読み込まれる
+%\includeonly{introduction}
+
+%----------------------------------------------------------------------
+% タイトルページ
+%----------------------------------------------------------------------
+% タイトル ２行にわたる場合は適宜改行をいれること。
+\title{拡張現実感を用いた看板画像からの店舗情報アクセス手法に関する研究}
+
+% 提出年月
+\date{平成 31 年 2 月}
+
+% 執筆者
+\author{北村 茂生}
+%----------------------------------------------------------------------
+
+
+\begin{document}
+
+%タイトルページ
+\maketitle
+
+\pagenumbering{roman}
+\include{abstract}
+
+%目次
+\tableofcontents
+
+%----------------------------------------------------------------------
+%本文
+%----------------------------------------------------------------------
+\newpage
+\pagenumbering{arabic}
+
+\include{introduction}
+\include{relatedwork}
+\include{proposal}
+\include{experiment}
+\include{discussion}
+\include{conclusion}
+\include{thanks}
+
+\bibliographystyle{ipsjsort}
+\bibliography{bibsample}
+
+
+\end{document}
