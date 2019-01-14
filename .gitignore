@@ -260,3 +260,6 @@ TSWLatexianTemp*
 
 # macOS
 .DS_Store
+
+# メモ用
+chapters.md
