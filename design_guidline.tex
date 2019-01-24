@@ -47,13 +47,13 @@
   \begin{figure}[t]
     \begin{minipage}{0.49\hsize}
         \begin{center}
-            \includegraphics[clip, width=\textwidth]{kitashinchi1.eps}\\
+            \includegraphics[clip, width=\textwidth]{kitashinchi1.png}\\
             \small{（a）加工前}
         \end{center}
     \end{minipage}
     \begin{minipage}{0.49\hsize}
         \begin{center}
-            \includegraphics[clip, width=\textwidth]{kitashinchi2.eps}\\
+            \includegraphics[clip, width=\textwidth]{kitashinchi2.png}\\
             \small{（b）加工後}
         \end{center}
     \end{minipage}
@@ -67,7 +67,7 @@
     \ref{subsection:requirement}節の（3）を満たすために，文献\cite{Fujita:2013}で提案された減算型情報提示手法を用いる．しかし，不要な情報を減算するのみでは，周辺の景色の彩度が低い場合など，環境条件によっては減算の効果が得られないことがある．そこで\ref{subsection:requirement}節の（4）を満たすために，ARを用いて文字情報を付加したハイブリッド型情報提示手法を提案する．文字色は背景の色に合わせて変化させる．これにより，ユーザが求める情報のみが分かりやすく提示されるため，上記の問題の解決が期待される．提案システムでは，ユーザが目的の店舗名や店舗の種類をクエリとして入力する．ユーザが入力したクエリに一致する視覚情報はユーザにとって必要な情報であり，それ以外の視覚情報は不要な情報である．そのため，情報の識別性向上を目的として，図\ref{figure:dr_method}に示すような出力をユーザに提示する．これは，不要な視覚情報をグレースケール化することによって減算し，必要な視覚情報には店舗名などの文字情報を看板の横に重畳して表示したものである．これにより，ユーザは不要な視覚情報を完全に失うことなく，必要な視覚情報のみを得られることが期待される．
 
     \begin{figure}[tb]
-      \centerline{\includegraphics[width=\columnwidth, clip]{dr_method.eps}}
+      \centerline{\includegraphics[width=\columnwidth, clip]{dr_method.pdf}}
       \caption{減算型表示の出力イメージ}
       \label{figure:dr_method}
     \end{figure}
@@ -82,7 +82,7 @@
     \ref{subsection:requirement}節の（4）を満たすために，減算型表示と同様に，条件に合致しない看板情報の色調を低減させ，条件に合う看板のみを強調して表示するインタフェースとする．
     提案インタフェースの出力イメージを図\ref{figure:sbs_method}に示す．
   \begin{figure}[tb]
-    \centerline{\includegraphics[width=\columnwidth, clip]{sbs_method.eps}}
+    \centerline{\includegraphics[width=\columnwidth, clip]{sbs_method.pdf}}
     \caption{Search by Snapの出力イメージ}
     \label{figure:sbs_method}
   \end{figure}
