@@ -1,17 +1,74 @@
 \chapter{Search by Snapのプロトタイプ}
+\label{chapter:implement_sbs}
 本章では，Search by Snapを用いて実装したプロトタイプについて述べる．
 
 \section{システムの概要}
   \ref{section:design_sbs}節で述べたデザイン指針に基づき，\ref{chapter:implement_recog}章で用いた店舗を対象としたプロトタイプを実装する．
   OSM上では，飲食店などの店舗のオブジェクトは位置を定義された単一の点であるノードとして扱われ，各オブジェクトには``OSM ID''という一意の番号が付与されている．
-  各店舗の看板画像とOSM IDを紐付け，Overpass API\footnote{http://overpass-api.de（2019/1/22確認）}を用いて店舗情報を取得することにより，看板画像から店舗情報へのアクセスができる．
-  表\ref{tab:storelist}内の``id''は各店舗のOSM IDを表しており，それぞれのノードには複数のタグが設定されている．
+  各店舗の看板画像とOSM IDを紐付け，Overpass API\footnote{http://overpass-api.de（2019/1/22確認）}を用いて店舗情報を取得する．これにより，\ref{chapter:implement_recog}章で実装したAPIを用いてリアルタイムで看板を認識し，店舗の看板から店舗情報へのアクセスができる．
+  各店舗の店舗名とノードは表\ref{table:storename_to_osmid}に示す通り対応しており，表\ref{table:storelist}に示すそれぞれのノードには複数のタグが設定されている．
   ``name''は店舗の名称が代入されている．
   ``shop''タグは，店舗が販売している商品を記述するために使用される．
   飲食店の場合，施設の種類を表す``amenity''タグにバーやレストランのような店舗の種類が代入されている．
   ``opening\_hours''タグには，店舗の営業時間が代入されている．年中無休で24時間営業の場合は``24/7''が，曜日によって営業時間が異なる場合は，セミコロン区切りで複数の値が代入されている．例えば，小だるま JR高槻駅前店は，月曜日から木曜日までは11時30分から14時00分と17時から23時30分まで，金曜日，土曜日は11時30分から14時30分と17時00分から24時30分，日曜日は11時30分から23時30分が営業時間である．この場合，``opening\_hours''タグの値は
   ``Mo-Th 11:30--14:00, 17:00--23:30; Fr-Su 11:30--14:30, 17:00--24:30; Su 11:30--23:30''となる．
-  支払いにクレジットカードが利用可能かどうかは，``american\_express''，``payment:diners\_club''，``payment:jcb''，``payment:master''，``payment:visa''，のタグに``yes''が代入されていれば利用可能である．表\ref{tab:storelist}には``payment:visa''タグのみを掲載している．
+  支払いにクレジットカードが利用可能かどうかは，``american\_express''，``payment:diners\_club''，``payment:jcb''，``payment:master''，``payment:visa''，のタグに``yes''が代入されていれば利用可能である．表\ref{table:storelist}には``payment:visa''タグのみを掲載している．
+
+  \begin{table}[tb]
+    \caption{店舗名とOSM IDの対応}
+    \label{table:storename_to_osmid}
+    \begin{center}
+      \begin{tabular}{c|c}
+        \hline\hline
+        店舗名 & OSM ID \\ 
+        \hline
+        セブン-イレブン 高槻高槻町店 & 2391866925 \\
+        全席個室居酒屋 北海の恩返し 高槻店 & 5279265335 \\
+        小だるま JR高槻駅前店 & 5281672553 \\
+        肉丼専門店 高槻肉劇場 & 5281672555 \\
+        おだいどこはなれ 高槻店 & 5281672556 \\
+        ビリヤード・ダーツ\&Food Bar Ozbuddy & 5281672557 \\
+        磯丸水産 高槻店 & 5281672577 \\
+        炭焼酒場 森田家 & 5281672578 \\
+        メサベルテ 高槻店 & 5281672579 \\
+        駿河屋 & 5281672580 \\
+        甲南チケット 高槻本通店 & 5281672581 \\
+        焼肉・しゃぶしゃぶ食べ放題　ぷくぷく　高槻店 & 5281672739 \\
+        赤から 高槻店 & 5281672740 \\
+        ちどり亭 高槻店 & 5281672835 \\
+        高槻ちゃぶちゃぶ & 5281672942 \\
+        \hline
+      \end{tabular}
+    \end{center}
+
+    \caption{対象とする店舗のノード（2018年12月1日時点のOSMのデータベースを基に作成）}
+    \label{table:storelist}
+    \begin{center}
+      \begin{tabular}{c|cccccc}
+        \hline\hline
+        id & shop & amenity & opening\_hours & payment:visa & \ldots \\ 
+        \hline
+        2391866925 & convenience & & 24/7 & yes & \\
+        5279265335 & & bar & 17:00-24:00 & yes & \\
+        5281672553 & & bar & Mo-Th 11:30-14:00; \ldots & yes & \\
+        5281672555 & & restaurant & 11:00-23:00 & no & \\
+        5281672556 & & bar & Mo-Th 11:30-24:00; \ldots & yes & \\
+        5281672557 & & pub & Mo-Th 14:00-26:00; \ldots & no & \\
+        5281672577 & & restaurant & 24/7 & yes & \\
+        5281672578 & & restaurant & 17:00-26:00 & yes & \\
+        5281672579 & bakery & & Mo-Sa 07:00-20:30; \ldots & no & \\
+        5281672580 & hobby & & 10:00-23:00 & no & \\
+        5281672581 & ticket & & Mo-Sa 10:00-19:00; \ldots & no & \\
+        5281672739 & & restaurant & Mo-Fr 16:30-25:00; \ldots & yes & \\
+        5281672740 & & bar & Mo-Fr 17:00-24:00; \ldots & yes & \\
+        5281672835 & & restaurant & 17:00-25:00 & yes & \\
+        5281672942 & & bar & 17:54-06:00 & yes & \\
+        \hline
+      \end{tabular}
+    \end{center}
+
+
+  \end{table}
 
 
 \section{システムのインタフェース}
@@ -49,7 +106,7 @@
   \end{enumerate}
 
   \begin{figure}[tb]
-    \centerline{\includegraphics[width=\columnwidth, clip]{sbs_system.eps}}
+    \centerline{\includegraphics[width=\columnwidth, clip]{sbs_system.pdf}}
     \caption{システムの動作}
     \label{figure:sbs_system}
   \end{figure}
