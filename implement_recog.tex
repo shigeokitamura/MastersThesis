@@ -59,7 +59,7 @@
     また，$iou(A, B)$は，矩形$A$と$B$のIntersection over Union（IoU）を表し，$p(c)$はセル$i$内の$j$番目の矩形候補内に物体が存在するとき，それがクラス$c$である事後確率を表す．また，$\lambda_{coord} = 1.0$，$\lambda_{conf}^{obj} = 5.0$，$\lambda_{conf}^{no\_obj} = 1.0$（ただし，$iou$が閾値未満のとき），$\lambda_{prob} = 1.0$である\cite{Nishikawa:2018}．
 
     上記の学習データを，1クラスのR-CNNとしてYOLOv2で学習させる．
-    学習データは$416 \times 416$にリサイズし，パラメータとしてバッチサイズは64，分割数は8，学習率は$10^{-3}$，慣性は0.9，荷重減衰は0.0005を与え反復回数は10,000回とする．
+    学習データは$416 \times 416$にリサイズし，パラメータとしてバッチサイズは64，分割数は8，学習率は$10^{-3}$，慣性は0.9，荷重減衰は0.0005を与え反復回数は1,000回とする．
     少ない学習データからモデルを作成するため，学習済みモデルであるDarknet19モデル\footnote{\url{https://pjreddie.com/darknet}（2019/1/27存在確認）}における最後の畳み込み層を取り除き，フィルタの数が1024である3層の$3 \times 3$の畳み込み層と，フィルタサイズが30である1層の$1 \times 1$の畳み込み層を加え，学習を行う．
     学習に用いたマシンのスペック表\ref{table:machine}に示す．
 
@@ -88,12 +88,12 @@
       IoU = \frac{GT \cap PR}{GT \cup PR}
     \end{equation}
     と定義される．
-    10,000回の反復学習の時点において，average lossは0.526，8分割されているIoU値の平均は0.850であった．
+    1,000回の反復学習の時点において，average lossは0.526，8分割されているIoU値の平均は0.850であった．
     損失のグラフを図\ref{figure:yolo_loss}に示す．
 
     \begin{figure}[tb]
       \centerline{\includegraphics[width=\columnwidth, clip]{yolo_loss.pdf}}
-      \caption{YOLOによる学習過程}
+      \caption{YOLOv2による学習誤差曲線}
       \label{figure:yolo_loss}
     \end{figure}
 
@@ -119,6 +119,7 @@
 
   \subsection{評価}
     学習過程におけるトレーニングデータとバリデーションデータの精度と損失のグラフを図\ref{figure:vgg_training}に示す．
+    50エポック時点でのトレーニングデータの精度は0.987，損失は0.097，バリデーションデータの精度は0.963，損失は0.156であった．
     評価指標に関しては，真に正であり，かつ予測結果も正であるデータ数をTrue Positive（TP），真に正であるが，予測結果が負であるデータ数をFalse Negative（FN），真に負であるが，予測結果が正であるデータ数をFalse Positive（FP），真に負であり，かつ予測結果も負であるデータ数をTrue Negative（TN）とすると，正と予測した場合の中で実際にそれが正しい割合である適合率（Precision），再現率実際に正である場合の中で正であると予測されたものの割合である再現率（Recall），適合率と再現率の調和平均であるF値は次式で定義される\cite{Richert:2013}．
 
     \begin{align}
@@ -131,23 +132,20 @@
     各評価指標について，全クラスの結果の平均であるマクロ平均を算出した．
     その結果，適合率は0.960，再現率は0.955，F値は0.956であり，このモデルは看板画像のクラスを分類するために十分な精度があるといえる．
 
-    \begin{figure}[t]
-      \begin{minipage}{0.49\hsize}
-        \begin{center}
-          \includegraphics[clip, width=\textwidth]{vgg_acc.pdf}\\
-          \small{（a）精度}
-        \end{center}
-      \end{minipage}
-      \begin{minipage}{0.49\hsize}
-        \begin{center}
-          \includegraphics[clip, width=\textwidth]{vgg_loss.pdf}\\
-          \small{（b）損失}
-        \end{center}
-      \end{minipage}
-      \vspace{2pt}
-      \caption{VGG16による学習過程}
+    \begin{figure}[tb]
+      \centerline{\includegraphics[width=\columnwidth, clip]{vgg_training.pdf}}
+      \caption{VGG16による学習誤差曲線}
       \label{figure:vgg_training}
     \end{figure}
+
+\section{APIの実装}
+  モバイルデバイスでリアルタイムに看板を認識するために，画像を送信すると，画像内の看板領域と，そのクラスを返却するAPIを実装する．
+  APIは，Python 3.6.5とWeb APIフレームワークであるFalcon \footnote{\url{https://falconframework.org}（2019/2/4存在確認）}を用いて構築した．
+  サーバには，表\ref{table:machine}に示す，学習に用いたものと同一のマシンを用いる．
+  まず，クライアントがAPIに画像をPOSTリクエストとして送信すると，サーバはTensorflow 1.0\cite{Abadi:2016}で実装されたYOLOv2により画像内の看板領域が検出され，切り出される．
+  次に，切り出された看板画像をVGG16によってクラス分けを行い，どの店舗の看板なのかを識別する．
+  最後に，画像内に存在する全て看板領域の左上と右下の座標，店舗のクラスを格納したJSONデータを生成し，クライアントに返却する．
+  このAPIを500ミリ秒毎に呼び出すことによって，モバイルデバイスでのリアルタイムな看板認識が可能になる．
 
 \section{フィールド実験}
   構築したモデルを用いて，実環境でも店舗を識別できるか確認するために，スマートフォンのカメラで撮影した画像をAPIに送信し，結果を表示するAndroidアプリケーションをKotlin\footnote{\url{https://kotlinlang.org}（2019/1/29存在確認）}を用いて実装した．
@@ -156,7 +154,7 @@
   実験結果を表\ref{table:recog_result}に示す．
   看板領域検出の再現率は0.947，看板領域が正しく検出された場合の内，看板画像のクラス分けの再現率は0.944であり，全体の再現率は0.893であった．
   500ms毎にAPIを呼び出すことによって，リアルタイムでの認識も可能であった．
-  考察として，図\ref{figure:recog_discussion}に示す「おだおどこはなれ」のように，同一の店舗が類似していない複数の看板を掲示している場合，本稿では1つの看板のみを学習させていたため，テストデータの精度は高かったものの，実世界での認識の精度は低くなる傾向が見られた．
+  考察として，図\ref{figure:recog_discussion}に示す「おだいどこはなれ」のように，同一の店舗が類似していない複数の看板を掲示している場合，本稿では1つの看板のみを学習させていたため，テストデータの精度は高かったものの，実世界での認識の精度は低くなる傾向が見られた．
 
   \begin{table}[t]
     \caption{モデルの評価及び実験の結果}
