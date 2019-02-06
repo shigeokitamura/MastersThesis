@@ -10,12 +10,12 @@
     ARを用いたナビゲーションシステムに関する研究も行われている．
     屋外でのナビゲーションは主にLocation--based ARが用いられており，それに対して屋内でのナビゲーションは主にVision--based ARが用いられている．
 
-    Location--based ARを用いた屋外ナビゲーションシステムの例として，Blippar株式会社\footnote{\url{https://www.blippar.com}（2019/2/5存在確認）}のARCity\footnote{\url{https://itunes.apple.com/us/app/arcity-ar-navigation/id1282527727}\label{footnote:arcity}（2019/2/5存在確認）}が挙げられる．ARCityは，GPSを用いてユーザの絶対位置を特定し，ARKit\footnote{\url{https://developer.apple.com/arkit}（2019/2/5存在確認）}を用いて地形を認識することで，目的地までの道のりを示す矢印をスマートフォンの画面に重畳表示している．
+    Location--based ARを用いた屋外ナビゲーションシステムの例として，図\ref{figure:arcity}に示すBlippar株式会社\footnote{\url{https://www.blippar.com}（2019/2/5存在確認）}のARCity\footnote{\url{https://itunes.apple.com/us/app/arcity-ar-navigation/id1282527727}\label{footnote:arcity}（2019/2/5存在確認）}が挙げられる．ARCityは，GPSを用いてユーザの絶対位置を特定し，ARKit\footnote{\url{https://developer.apple.com/arkit}（2019/2/5存在確認）}を用いて地形を認識することで，目的地までの道のりを示す矢印をスマートフォンの画面に重畳表示している．
     しかし，このようなLocation--based ARを用いたシステムは，地図上での目的地に到着した後，ユーザが現実世界上で目的地を探す必要がある．
     \begin{figure}[tb]
       \centerline{\includegraphics[width=\columnwidth, clip]{arcity.jpg}}
       \caption{（脚注\ref{footnote:arcity}より図引用）}
-      \label{figure:koch}
+      \label{figure:arcity}
     \end{figure}
 
     Vision--based ARはさらにマーカ有りとマーカレスに分類できる．
@@ -23,12 +23,15 @@
     Kochらは，出口の案内板など自然なオブジェクトをARマーカとしたナビゲーションシステムを開発している\cite{Koch:2014}．これにより，屋内において煙が探知された際に，作動した煙探知機までの経路を提示し，ARを用いて対処方法を提示している．
     \begin{figure}[tb]
       \centerline{\includegraphics[width=\columnwidth, clip]{koch.png}}
-      \caption{（文献\cite{Koch:2014}より図引用）}
+      \caption{マーカ有り屋内ナビゲーションの例（文献\cite{Koch:2014}より図引用）}
       \label{figure:koch}
     \end{figure}
 
-    マーカレスARを用いた屋内ナビゲーションシステムの例として，
-    Georgらは，屋内など限定された地域におけるナビゲーションシステムを提案している\cite{Gerstweiler:2018, Iwanaji:2016}．
+    マーカレスARを用いた屋内ナビゲーションシステムの研究も行われている．
+    Rehmanらは，ウェアラブルデバイスであるGoogle Glassを用いて，屋内の構造を3次元のポイントクラウドとすることにより，搭載されているカメラでポイントをトラッキングしてナビゲーションを行うシステムを提案している\cite{Rehman:2015}．
+    Gerstweilerらは，RGB-Dカメラを用いて屋内環境を6自由度でトラッキングし，目的地までの最短経路を算出するアルゴリズムを提案している\cite{Gerstweiler:2018}．
+    
+    \cite{Iwanaji:2016}．
     しかし，これらのVision--based ARのみを用いたシステムは，屋内など特定の場所でしか利用できない．
     
     このような携帯端末上でのARを用いたナビゲーションは，紙の地図を用いた場合と比較して，より短い時間と少ない操作で目的地まで辿り着けることが明らかとなっている\cite{Rehman:2017, Yoshino:2013}．
@@ -89,5 +92,5 @@
   \end{figure}
   
 \section{物体認識に関する研究}
-
+  \cite{Doi:2018}．
 \section{本研究の位置付け}
