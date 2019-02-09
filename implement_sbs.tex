@@ -92,17 +92,17 @@
     \item システムは携帯端末のGPS機能により，ユーザの位置情報を取得する
     \item ユーザは店舗の種類などのクエリを入力する
     \item システムはOverpass APIに位置情報とクエリを送信し，クエリに一致する周辺の店舗のOSM IDを取得する
-    \item ユーザは携帯端末のカメラを通して街から画像情報を取得する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 1}）
-    \item システムは画像をサーバに送信する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 2}）
-    \item サーバはYOLOを用いて画像の中から看板領域を検出する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 3}）
-    \item サーバは検出された看板領域を切り抜く（図\ref{figure:sbs_method}中\textcircled{\scriptsize 4}）
-    \item サーバはそれぞれの看板画像をVGG16を用いて店舗名でクラス分けする（図\ref{figure:sbs_method}中\textcircled{\scriptsize 5}）
-    \item サーバは画像内の看板の左上と右下の座標と検出した看板の店舗と関連付けられたOSMのノードのidをそれぞれ格納したJSONデータを生成する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 6}）
-    \item サーバは生成されたJSONをシステムに返り値として返却する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 7}）
-    \item システムはユーザが求めていない視覚情報の色調を低減させ，ユーザが求めている店舗の情報を看板の横に吹き出しとして重畳表示する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 8}）
-    \item システムは認識した看板と関連付けられているOSM IDをOverpass APIに送信する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 9}）
-    \item Overpass APIはOSM IDと一致する店舗のノードをシステムに返却する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 10}）
-    \item システムは出力結果をユーザに提示する（図\ref{figure:sbs_method}中\textcircled{\scriptsize 11}）
+    \item ユーザは携帯端末のカメラを通して街から画像情報を取得する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 1}）
+    \item システムは画像をサーバに送信する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 2}）
+    \item サーバはYOLOを用いて画像の中から看板領域を検出する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 3}）
+    \item サーバは検出された看板領域を切り抜く（図\ref{figure:sbs_system}中\textcircled{\scriptsize 4}）
+    \item サーバはそれぞれの看板画像をVGG16を用いて店舗名でクラス分けする（図\ref{figure:sbs_system}中\textcircled{\scriptsize 5}）
+    \item サーバは画像内の看板の左上と右下の座標と検出した看板の店舗と関連付けられたOSMのノードのidをそれぞれ格納したJSONデータを生成する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 6}）
+    \item サーバは生成されたJSONをシステムに返り値として返却する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 7}）
+    \item システムはユーザが求めていない視覚情報の色調を低減させ，ユーザが求めている店舗の情報を看板の横に吹き出しとして重畳表示する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 8}）
+    \item システムは認識した看板と関連付けられているOSM IDをOverpass APIに送信する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 9}）
+    \item Overpass APIはOSM IDと一致する店舗のノードをシステムに返却する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 10}）
+    \item システムは出力結果をユーザに提示する（図\ref{figure:sbs_system}中\textcircled{\scriptsize 11}）
   \end{enumerate}
 
   \begin{figure}[tb]

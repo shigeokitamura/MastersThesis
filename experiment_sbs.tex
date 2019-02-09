@@ -30,27 +30,25 @@
     実験終了後には，参加者に「求めていた情報の見つけやすさ（簡便性）」，「情報探索の直感性（直感性）」について，提案システムとGoogle検索との間で5段階のリッカート尺度を用い，「1」を「Google検索」，「5」を「提案システム」として5段階評価のアンケートへの回答を求めた．
 
   \subsection{実験の結果と考察}
-    実験の結果を図\ref{figure:exp_sbs_pre_result}に示す．
+    実験の結果を図\ref{figure:exp_sbs_pre_result_time}，\ref{figure:exp_sbs_pre_result_acc}に示す．
     探索時間に関して，システムを用いた場合の探索時間はGoogle検索を用いた場合と比較して短くなる傾向が見られた．
     正確さに関して，システムを用いた場合の正確性はGoogle検索を用いた場合とで差が見られない傾向があった．
     アンケートの結果を表\ref{table:exp_sbs_pre_questionnaire}に示す．
     アンケートの結果から，提案システムを用いることによって，Google検索を用いた場合より直感的かつ簡易に探索ができるようになることが示唆された．
 
-    \begin{figure}[t]
-      \begin{minipage}{0.49\hsize}
-        \begin{center}
-          \includegraphics[clip, width=\textwidth]{sbs_pre_result_time.pdf}\\
-          \small{（a）探索時間}
-        \end{center}
-      \end{minipage}
-      \begin{minipage}{0.49\hsize}
-        \begin{center}
-          \includegraphics[clip, width=\columnwidth]{sbs_pre_result_acc.pdf}
-          \small{（b）正解率}
-        \end{center}
-      \end{minipage}
-      \caption{予備実験の結果}
-      \label{figure:exp_sbs_pre_result}
+    \begin{figure}[tb]
+      \begin{center}
+        \includegraphics[clip, width=.95\columnwidth]{sbs_pre_result_time.pdf}
+        \caption{予備実験の結果（探索時間）}
+        \label{figure:exp_sbs_pre_result_time}
+      \end{center}
+    \end{figure}
+    \begin{figure}[tb]
+      \begin{center}
+        \includegraphics[clip, width=.95\columnwidth]{sbs_pre_result_acc.pdf}
+        \caption{予備実験の結果（正解率）}
+        \label{figure:exp_sbs_pre_result_acc}
+      \end{center}
     \end{figure}
 
     \begin{table}
@@ -80,8 +78,8 @@
 
     実験参加者にはタスク（A）として，「小だるま JR高槻駅前店」，「肉丼専門店 高槻肉劇場」，「磯丸水産 高槻店」の3店舗について，使用できるクレジットカードの種類を``Visa''，``Mastercard''，``JCB''，``American Express''，``Diners Club''の5つのチェックボックスから全て選択すること，タスク（B）として，「おだいどこはなれ 高槻店」，「高槻ちゃぶちゃぶ」，「赤から 高槻店」の3店舗について，月曜日の営業開始時刻を数値で入力すること，の2点を課した．
     タスク（A）は図\ref{figure:exp_sbs_point}中\textcircled{\scriptsize 1}で示した位置に立った状態，タスク（B）は図\ref{figure:exp_sbs_point}中\textcircled{\scriptsize 2}で示した位置に立った状態で行った．
-    実験に用いた携帯端末はクアンタ・コンピュータ社\footnote{http://www.quantatw.com}のVA-10J（Android 5.0.2）である．
-    提案システムとの比較対象とする位置情報を用いたサービスは，ランキングやユーザの口コミ・写真をもとにレストランの検索が行えるサービスである食べログ\footnote{https://tabelog.com}を用いた．
+    実験に用いた携帯端末はクアンタ・コンピュータ社\footnote{\url{http://www.quantatw.com}（2019/2/8存在確認）}のVA-10J（Android 5.0.2）である．
+    提案システムとの比較対象とする位置情報を用いたサービスは，ランキングやユーザの口コミ・写真をもとにレストランの検索が行えるサービスである食べログ\footnote{\url{https://tabelog.com}（2019/2/8存在確認）}を用いた．
 
   \begin{figure}[tb]
     \begin{center}
@@ -124,13 +122,13 @@
     \begin{figure}[tb]
       \begin{center}
         \includegraphics[clip, width=.95\columnwidth]{sbs_result_time.pdf}
-        \caption{探索時間}
+        \caption{本実験の結果（探索時間）}
         \label{figure:exp_sbs_result_time}
       \end{center}
       \vspace{1cm}
       \begin{center}
         \includegraphics[clip, width=.95\columnwidth]{sbs_result_acc.pdf}
-        \caption{正解率}
+        \caption{本実験の結果（正解率）}
         \label{figure:exp_sbs_result_acc}
       \end{center}
     \end{figure}
