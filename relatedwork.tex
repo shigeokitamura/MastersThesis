@@ -105,7 +105,7 @@
   
 \section{物体検出に関する研究}
   物体検出においては，画像全体から特徴量を抽出できる畳み込みニューラルネットワーク（CNN）\cite{Lecun:1998}をベースとしたR-CNN\cite{Girshick:2014}を用いる手法が現在の主流である\cite{Nakayama:2015}．
-  R-CNNでは，前処理として画像の中から物体の候補領域を予め多数取り出し，各候補領域についてCNNで物体の有無を識別することで検出を行なっている．最新の手法では，図\ref{figure:ren}のように物体候補領域の生成から識別・矩形抽出までend-to-endで学習が行えるようになっている\cite{Redmon:2017, Ren:2017}．
+  R-CNNでは，前処理として画像の中から物体の候補領域を予め多数取り出し，各候補領域についてCNNで物体の有無を識別することで検出を行っている．最新の手法では，図\ref{figure:ren}のように物体候補領域の生成から識別・矩形抽出までend-to-endで学習が行えるようになっている\cite{Redmon:2017, Ren:2017}．
   \begin{figure}[tb]
     \centerline{\includegraphics[width=\columnwidth, clip]{ren.png}}
     \caption{Faster R-CNNによる物体検出の例（文献\cite{Ren:2017}より図引用）}
